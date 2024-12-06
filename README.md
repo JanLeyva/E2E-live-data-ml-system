@@ -17,3 +17,11 @@ What else?
 1. We used `quixstreams` to push the date to **redpanda**.
 1. We build a class `KrakenWebsocketAPI` that connects though websockets to Kraken API and starts getting date (base on the pairs defined in .env).
 1. Also, this `KrakenWebsocketAPI` is returning a `Trade` object we have defined, validated by **pydantic**.
+
+# Lesson 2: 2024.12.04
+
+1. container our application with Docker. Write `Dockerfile` Build an `Image` -> Run the `container`.
+    There are some strategies to optimize the dockerization:
+    - You can cache parts of your image, to avoid re-build every time the whole image.
+    - Do a multistage image (e.g. `services/trades/multi.Dockerfile`).
+        * What does it means? We first build our image installing all the dependencies that we will need, in this case **uv** (we used it to build our service/app/module/package). Once you have all installed, crates a second image with the just necessaries thing, a minimalist image to run our serice/app.

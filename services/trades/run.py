@@ -5,10 +5,11 @@ from typing import Union
 from kraken_api.mock import KrakenMockAPI
 from kraken_api.websocket import KrakenWebsocketAPI
 
+
 def main(
     kafka_broker_address: str,
     kafka_topic: str,
-    kraken_api: Union[KrakenWebsocketAPI, KrakenMockAPI]
+    kraken_api: Union[KrakenWebsocketAPI, KrakenMockAPI],
 ):
     """
     It does 2 things:
@@ -21,7 +22,7 @@ def main(
         kraken_api: Union[KrakenWebsocketAPI, KrakenMockAPI]
 
     Returns:
-        None
+        None .
     """
     logger.info("Start the trades service")
 
@@ -32,10 +33,9 @@ def main(
     )
 
     # Define the topic where we will push the trades to
-    topic = app.topic(name=kafka_topic, value_serializer='json')
+    topic = app.topic(name=kafka_topic, value_serializer="json")
 
     with app.get_producer() as producer:
-
         while True:
             trades = kraken_api.get_trades()
 
@@ -47,15 +47,14 @@ def main(
                 )
 
                 # push the serialized message to the topic
-                producer.produce(
-                    topic=topic.name, value=message.value, key=message.key
-                )
-                
-                logger.info(f'Pushed trade to Kafka: {trade}')
+                producer.produce(topic=topic.name, value=message.value, key=message.key)
+
+                logger.info(f"Pushed trade to Kafka: {trade}")
+
 
 if __name__ == "__main__":
-    
     from config import config
+
     # Initialize the Kraken API
     kraken_api = KrakenWebsocketAPI(pairs=config.pairs)
     # kraken_api = KrakenMockAPI('BTC/USD')
@@ -63,5 +62,5 @@ if __name__ == "__main__":
     main(
         kafka_broker_address=config.kafka_broker_address,
         kafka_topic=config.kafka_topic,
-        kraken_api=kraken_api
+        kraken_api=kraken_api,
     )
