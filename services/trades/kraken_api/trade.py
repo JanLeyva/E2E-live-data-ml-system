@@ -10,7 +10,7 @@ class Trade(BaseModel):
     pair: str
     price: float
     volume: float
-    timestamp: datetime
+    timestamp: str
     timestamp_ms: int
 
     @classmethod
@@ -35,6 +35,10 @@ class Trade(BaseModel):
             datetime.strptime(datestr, "%Y-%m-%dT%H:%M:%S.%fZ").timestamp() * 1000
         )
 
+    # NOTE: deprectated, we are using to_dict to deserialize the output
     def to_str(self) -> str:
         # pydantic method to convert the model to a dict
         return self.model_dump_json()
+
+    def to_dict(self) -> dict:
+        return self.model_dump()
