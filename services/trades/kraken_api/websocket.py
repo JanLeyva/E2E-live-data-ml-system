@@ -69,7 +69,7 @@ class KrakenWebsocketAPI:
                     "params": {
                         "channel": "trade",
                         "symbol": self.pairs,
-                        "snapshot": True,
+                        "snapshot": False,  # I don't want old data, just fresh
                     },
                 }
             )
