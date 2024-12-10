@@ -152,14 +152,13 @@ def main(
 
     sdf = format_sdf(sdf)
 
+    sdf["candle_seconds"] = candle_seconds
+
     # debugged "bug", we need to log our data, for this reason we were not seeing it in Kafka
     sdf = sdf.update(
         lambda value: logger.info(f"Candle value: {value}")
     )  # OR, sdf.print()
     # sdf = sdf.update(lambda value: breakpoint())
-
-    # push the candle to the application
-    sdf.to_topic(topic=output_topic)
 
     # push the candle to the Kafka topic
     sdf = sdf.to_topic(topic=output_topic)

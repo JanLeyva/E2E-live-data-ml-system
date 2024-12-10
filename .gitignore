@@ -1,37 +1,29 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
-# README.html
-README.html
+.ruff_cache/
 
 # C extensions
 *.so
 
-# pylint .ruff - PEP8 formatters and checkers
-.ruff_cache
-
-# vscode
-.vscode/*
-.vscode/settings.json
-.vscode/tasks.json
-.vscode/launch.json
-.vscode/extensions.json
-.vscode/*.code-snippets
-
-# external path links
-*.lnk
-
-# Local History for Visual Studio Code
-.history/
-
-# Built Visual Studio Code Extensions
-*.vsix
+# enviorament files
+*.env
 
 # Distribution / packaging
 .Python
-build/
+#build/
 develop-eggs/
 dist/
 downloads/
@@ -88,7 +80,7 @@ db.sqlite3-journal
 instance/
 .webassets-cache
 
-# Scrapy stuff:
+# Scrapy stuff:import comet_ml
 .scrapy
 
 # Sphinx documentation
@@ -154,7 +146,7 @@ venv.bak/
 # Spyder project settings
 .spyderproject
 .spyproject
-pyproject.toml
+
 # Rope project settings
 .ropeproject
 
@@ -180,8 +172,44 @@ cython_debug/
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-.idea/
+#.idea/
 
-# Temp folders
-data/
-wandb/
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# Artifacts
+results/
+output*/
+model_cache/
+output*
+user_data.sh
+
+set_env_variables.sh
+logs/
+.DS_Store
+gradio_cached_examples
+trust_policy.json
+
+.TODOS
+ca.cert
+*.pkl
+**/state
+**/setup_credentials.sh
+*.csv
+**/credentials.env
+.venv/
+certificates/
+*.parquet
+target/
+anthropic.env
