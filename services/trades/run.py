@@ -1,15 +1,16 @@
 from loguru import logger
 from quixstreams import Application
-from typing import Union
 
 from kraken_api.mock import KrakenMockAPI
 from kraken_api.websocket import KrakenWebsocketAPI
+from kraken_api.rest import KrakenRestAPI
+from kraken_api.base import TradesAPI
 
 
 def main(
     kafka_broker_address: str,
     kafka_topic: str,
-    kraken_api: Union[KrakenWebsocketAPI, KrakenMockAPI],
+    trades_api: TradesAPI,
 ):
     """
     It does 2 things:
@@ -19,7 +20,7 @@ def main(
     Args:
         kafka_broker_address: str
         kafka_topic: str
-        kraken_api: Union[KrakenWebsocketAPI, KrakenMockAPI]
+        trades_api: TradesAPI with two methods. get_trades and its_done
 
     Returns:
         None .
@@ -36,8 +37,8 @@ def main(
     topic = app.topic(name=kafka_topic, value_serializer="json")
 
     with app.get_producer() as producer:
-        while True:
-            trades = kraken_api.get_trades()
+        while not trades_api.is_done():
+            trades = trades_api.get_trades()
 
             for trade in trades:
                 # serialize the trade as bytes
@@ -55,12 +56,18 @@ def main(
 if __name__ == "__main__":
     from config import config
 
-    # Initialize the Kraken API
-    kraken_api = KrakenWebsocketAPI(pairs=config.pairs)
-    # kraken_api = KrakenMockAPI('BTC/USD')
+    # Initialize the Kraken API depending on the data source
+    if config.data_source == "live":
+        kraken_api = KrakenWebsocketAPI(pairs=config.pairs)
+    elif config.data_source == "historical":
+        kraken_api = KrakenRestAPI(pairs=config.pairs, last_n_days=config.last_n_days)
+    elif config.data_source == "test":
+        kraken_api = KrakenMockAPI(pairs=config.pairs)
+    else:
+        raise ValueError(f"Invalid data source: {config.data_source}")
 
     main(
         kafka_broker_address=config.kafka_broker_address,
         kafka_topic=config.kafka_topic,
-        kraken_api=kraken_api,
+        trades_api=kraken_api,
     )

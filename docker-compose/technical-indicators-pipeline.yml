@@ -12,7 +12,7 @@ services:
     networks:
       - redpanda_network
     env_file:
-      - ../services/trades/.env
+      - ../services/trades/live.settings.env
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
     restart: always

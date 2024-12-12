@@ -13,4 +13,4 @@ start-technical-indicators-pipeline:
 	docker compose -f technical-indicators-pipeline.yml up -d
 
 stop-technical-indicators-pipeline:
-	docker compose -f technical-indicators-pipeline.yml up -d
+	docker compose -f technical-indicators-pipeline.yml down

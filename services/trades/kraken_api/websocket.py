@@ -3,9 +3,10 @@ import json
 from loguru import logger
 from websocket import create_connection
 from .trade import Trade
+from .base import TradesAPI
 
 
-class KrakenWebsocketAPI:
+class KrakenWebsocketAPI(TradesAPI):
     URL = "wss://ws.kraken.com/v2"
 
     def __init__(self, pairs: List[str]):
@@ -56,6 +57,9 @@ class KrakenWebsocketAPI:
         # breakpoint()
 
         return trades
+
+    def is_done(self) -> bool:
+        return False
 
     def _subscribe(self):
         """
