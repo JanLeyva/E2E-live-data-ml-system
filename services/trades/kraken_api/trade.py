@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from pydantic import BaseModel
 
 
@@ -20,7 +21,7 @@ class Trade(BaseModel):
         price: float,
         volume: float,
         timestamp_sec: float,
-    ) -> "Trade":
+    ) -> 'Trade':
         """
         Returns a Trade object from the Kraken REST API response.
 
@@ -48,7 +49,7 @@ class Trade(BaseModel):
         price: float,
         volume: float,
         timestamp: datetime,
-    ) -> "Trade":
+    ) -> 'Trade':
         return cls(
             pair=pair,
             price=price,
@@ -60,13 +61,13 @@ class Trade(BaseModel):
     @staticmethod
     def _milliseconds2datestr(milliseconds: int) -> str:
         return datetime.fromtimestamp(milliseconds / 1000).strftime(
-            "%Y-%m-%dT%H:%M:%S.%fZ"
+            '%Y-%m-%dT%H:%M:%S.%fZ'
         )
 
     @staticmethod
     def _datestr2milliseconds(datestr: str) -> int:
         return int(
-            datetime.strptime(datestr, "%Y-%m-%dT%H:%M:%S.%fZ").timestamp() * 1000
+            datetime.strptime(datestr, '%Y-%m-%dT%H:%M:%S.%fZ').timestamp() * 1000
         )
 
     # NOTE: deprectated, we are using to_dict to deserialize the output

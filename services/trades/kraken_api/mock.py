@@ -1,7 +1,7 @@
 # Mock the Kraken API
 from datetime import datetime
-from typing import List
 from time import sleep
+from typing import List
 
 from .trade import Trade
 

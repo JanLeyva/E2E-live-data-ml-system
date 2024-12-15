@@ -46,7 +46,7 @@ class KrakenRestAPI(TradesAPI):
 
 
 class KrakenRestAPISinglePair(TradesAPI):
-    URL = "https://api.kraken.com/0/public/Trades"
+    URL = 'https://api.kraken.com/0/public/Trades'
 
     def __init__(
         self,
@@ -63,35 +63,35 @@ class KrakenRestAPISinglePair(TradesAPI):
         )
 
         logger.info(
-            f"Getting trades for pair {self.pair} for the last {self.since_timestamp_ns * 1000000000} seconds"
+            f'Getting trades for pair {self.pair} for the last {self.since_timestamp_ns * 1000000000} seconds'
         )
 
     def get_trades(self) -> List[Trade]:
         """
         Sends a request to the Kraken API and returns the trades for the pair.
         """
-        headers = {"Accept": "application/json"}
+        headers = {'Accept': 'application/json'}
         params = {
-            "pair": self.pair,
-            "since": self.since_timestamp_ns,
+            'pair': self.pair,
+            'since': self.since_timestamp_ns,
         }
 
-        response = requests.request("GET", self.URL, headers=headers, params=params)
+        response = requests.request('GET', self.URL, headers=headers, params=params)
 
         # parse the response as json
         try:
             data = json.loads(response.text)
         except json.JSONDecodeError as e:
-            logger.error(f"Failed to parse response as json: {e}")
+            logger.error(f'Failed to parse response as json: {e}')
             return []
 
         # TODO: check if we get a an error response. If so, implement a slow-down mechanism
 
         # get the trades for the self.pair cryptocurrency
         try:
-            trades = data["result"][self.pair]
+            trades = data['result'][self.pair]
         except KeyError as e:
-            logger.error(f"Failed to get trades for pair {self.pair}: {e}")
+            logger.error(f'Failed to get trades for pair {self.pair}: {e}')
             return []
 
         # convert the trades to Trade objects
@@ -106,7 +106,7 @@ class KrakenRestAPISinglePair(TradesAPI):
         ]
 
         # update the since_timestamp_ns
-        self.since_timestamp_ns = int(float(data["result"]["last"]))
+        self.since_timestamp_ns = int(float(data['result']['last']))
 
         # check if we are done
         # TODO: check if this stopping conditions really work

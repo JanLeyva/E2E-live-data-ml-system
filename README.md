@@ -31,3 +31,11 @@ What else?
 1. Today we have fixed the bug of candles (there was no bug, we jsut haven't logged the candles). Also, we have dokarized the candles services.
 1. Build the technical indicators services. Where we calculate a banch of indicators from the candles and we upload it to Kafka topic (redpanda) again. To calculate the technical indicators we use [talib](https://github.com/TA-Lib/ta-lib-python).
 1. We have started to build the ingest to feature store [hopsworks](https://c.app.hopsworks.ai/account/api)
+
+# Lesson 5: 2024.12.11
+
+wrap up all together in a docker composer. Running the whole historical and live pipeline together. This is composed by 4 services:
+1. Trades: get from websocket the latest date for the crypto currency.
+1. Candles: calcualte the candles indicator for each currency.
+1. Technical indicators: calculate techinical indicators from thoese candles (features).
+1. To feature store: we use HopsWorks as a feature store pushing data from redpanda (kafka) to HopsWorks.
