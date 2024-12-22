@@ -1,6 +1,6 @@
-from cryptopanics_api.news_data_source import NewsDataSource
-from cryptopanics_api.news_downloader import NewsDownloader
 from quixstreams import Application
+from sources.news_data_source import NewsDataSource
+from sources.news_downloader import NewsDownloader
 
 
 def main(
