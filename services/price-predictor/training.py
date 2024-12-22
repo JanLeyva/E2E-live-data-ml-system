@@ -23,8 +23,6 @@ def train(
     5. Saves the model to the model registry
 
     Everything is instrumented with CometML.
-
-
     """
     logger.info('Hello from the ML model training job...')
 
