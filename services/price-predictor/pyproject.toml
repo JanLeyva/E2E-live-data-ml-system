@@ -5,7 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "comet-ml>=3.47.5",
     "hopsworks>=4.1.4",
+    "joblib>=1.4.2",
     "loguru>=0.7.3",
     "pydantic-settings>=2.7.0",
+    "scikit-learn>=1.6.0",
+    "xgboost>=2.1.3",
 ]

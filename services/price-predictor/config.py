@@ -15,11 +15,17 @@ class TrainingConfig(BaseSettings):
     pairs_as_features: list[str] = Field(
         description='The pairs to use for the features'
     )
+    technical_indicators_as_features: list[str] = Field(
+        description='The technical indicators to use for from the technical_indicators feature group'
+    )
     days_back: int = Field(
         description='The number of days to consider for the historical data'
     )
     llm_model_name_news_signals: str = Field(
         description='The name of the LLM model to use for the news signals'
+    )
+    hyperparameter_tuning: bool = Field(
+        description='Whether to perform hyperparameter tuning'
     )
 
 
@@ -27,9 +33,16 @@ training_config = TrainingConfig()
 
 
 class HopsworksCredentials(BaseSettings):
-    model_config = SettingsConfigDict(env_file='credentials.env')
+    model_config = SettingsConfigDict(env_file='hopsworks_credentials.env')
+    api_key: str
+    project_name: str
+
+
+class CometMlCredentials(BaseSettings):
+    model_config = SettingsConfigDict(env_file='comet_ml_credentials.env')
     api_key: str
     project_name: str
 
 
 hopsworks_credentials = HopsworksCredentials()
+comet_ml_credentials = CometMlCredentials()
