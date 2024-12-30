@@ -6,12 +6,13 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "comet-ml>=3.47.5",
+    "elasticsearch>=8.17.0",
     "hopsworks>=4.1.4",
     "joblib>=1.4.2",
     "loguru>=0.7.3",
     "optuna>=4.1.0",
-    "pydantic-settings>=2.7.0",
-    "quixstreams>=2.5.1",
+    "pydantic-settings>=2.6.1",
+    "quixstreams==3.3.0",
     "scikit-learn>=1.6.0",
     "xgboost>=2.1.3",
 ]
