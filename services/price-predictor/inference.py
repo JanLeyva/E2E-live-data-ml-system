@@ -1,3 +1,12 @@
+from config import (
+    comet_ml_credentials as comet_config,
+)
+from config import (
+    hopsworks_credentials as hopsworks_config,
+)
+from config import (
+    inference_config as config,
+)
 from loguru import logger
 from quixstreams import Application
 from src.price_predictor import PricePredictor
@@ -62,16 +71,6 @@ def run(
 
 
 def main():
-    from config import (
-        comet_ml_credentials as comet_config,
-    )
-    from config import (
-        hopsworks_credentials as hopsworks_config,
-    )
-    from config import (
-        inference_config as config,
-    )
-
     # Load the model from the model registry and the necessary metadata at initialization
     # It exposes a `predict` method that can be used to generate predictions
     # We initialize here so that the run() methods does not need to worry about credentials
