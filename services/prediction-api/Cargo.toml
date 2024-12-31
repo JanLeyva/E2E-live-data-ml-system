@@ -1,0 +1,9 @@
+[package]
+name = "prediction-api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4.9.0"
+elasticsearch = "8.17.0-alpha.1"
+serde = { version = "1.0.217", features = ["derive"] }
