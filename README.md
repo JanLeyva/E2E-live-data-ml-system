@@ -39,3 +39,12 @@ wrap up all together in a docker composer. Running the whole historical and live
 1. Candles: calcualte the candles indicator for each currency.
 1. Technical indicators: calculate techinical indicators from thoese candles (features).
 1. To feature store: we use HopsWorks as a feature store pushing data from redpanda (kafka) to HopsWorks.
+
+
+# TODO
+## Services
+- trades -> candles -> technical-indicators -> to-feature-store DONE (perhaps need to backfill)
+- news -> news signal: fine-tune LLM, then backfill historical
+- price-predictor: train xgboost with historical data
+## Inference
+- Rust API
