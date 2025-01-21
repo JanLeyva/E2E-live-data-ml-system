@@ -12,4 +12,6 @@ dependencies = [
     "quixstreams>=3.4.0",
     "llama-index-llms-ollama>=0.5.0",
     "fire>=0.7.0",
+    "comet-ml>=3.47.6",
+    "unsloth>=2025.1.6",
 ]
