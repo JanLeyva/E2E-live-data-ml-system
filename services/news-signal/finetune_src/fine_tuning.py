@@ -1,7 +1,7 @@
 import os
 from typing import Literal, Optional, Tuple
 
-from config_tokens import config
+# from config_tokens import config
 import comet_ml
 from datasets import Dataset, load_dataset
 from loguru import logger
@@ -219,8 +219,8 @@ def export_model_to_ollama_format(
     tokenizer: AutoTokenizer,
     quantization_method: Optional[Literal['q4_k_m', 'f16', 'q8_0']] = 'q8_0',
     # Optionally you can push it to HugginFace model registry
-    hf_username: Optional[str] = None,
-    hf_token: Optional[str] = None,
+    # hf_username: Optional[str] = None,
+    # hf_token: Optional[str] = None,
 ):
     """
     Saves the model and the tokenizer to disk locally and pushes them
@@ -243,16 +243,20 @@ def export_model_to_ollama_format(
 
     # export the Ollama Modelfile
 
-    breakpoint()
-
     # TODO: if you want to push to HF you need to get your HF username and generate
     # a token at https://huggingface.co/settings/tokens
-    # model.push_to_hub_gguf(
-    #     "hf/model", # Change hf to your username!
-    #     tokenizer,
-    #     quantization_method = ["q4_k_m", "q8_0", "q5_k_m",],
-    #     token = "", # Get a token at https://huggingface.co/settings/tokens
-    # )
+    model.push_to_hub_gguf(
+        'hf/model',  # Change hf to your username!
+        tokenizer,
+        quantization_method=[
+            'q4_k_m',
+            'q8_0',
+            'q5_k_m',
+        ],
+        token='',  # Get a token at https://huggingface.co/settings/tokens
+    )
+
+    breakpoint()
 
 
 def run(
