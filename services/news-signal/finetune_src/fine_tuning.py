@@ -1,6 +1,7 @@
 import os
 from typing import Literal, Optional, Tuple
 
+from config_tokens import config
 import comet_ml
 from datasets import Dataset, load_dataset
 from loguru import logger
@@ -307,7 +308,7 @@ def run(
         train_dataset,
         test_dataset,
         max_seq_length=max_seq_length,
-        max_steps=max_steps,
+        # max_steps=max_steps,
     )
 
     # 5. Inference on a few examples - sanity check
