@@ -5,8 +5,9 @@ import pandas as pd
 import patoolib
 import requests
 from loguru import logger
-from news import News
 from quixstreams.sources.base import Source
+
+from sources.news import News
 
 
 class HistoricalNewsDataSource(Source):

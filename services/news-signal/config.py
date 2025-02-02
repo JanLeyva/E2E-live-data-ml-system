@@ -11,7 +11,8 @@ class Config(BaseSettings):
     kafka_output_topic: str
     kafka_consumer_group: str
 
-    model_provider: Literal['anthropic', 'ollama']
+    model_provider: Literal['anthropic', 'ollama', 'dummy']
+    data_source: Literal['live', 'historical']
 
 
 config = Config()

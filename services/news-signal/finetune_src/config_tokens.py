@@ -1,5 +1,3 @@
-from typing import Literal
-
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -8,5 +6,6 @@ class ConfigTokens(BaseSettings):
 
     COMET_API_KEY: str
     HF_TOKEN: str
+
 
 config = ConfigTokens()
