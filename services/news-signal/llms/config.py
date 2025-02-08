@@ -10,3 +10,4 @@ class AnthropicConfig(BaseSettings):
 class OllamaConfig(BaseSettings):
     model_config = SettingsConfigDict(env_file='ollama.env')
     model_name: str
+    ollama_base_url: str

@@ -9,10 +9,10 @@ dependencies = [
     "llama-index>=0.12.5",
     "loguru>=0.7.3",
     "pydantic-settings>=2.6.1",
-    "quixstreams>=3.4.0",
     "llama-index-llms-ollama>=0.5.0",
     "fire>=0.7.0",
     "comet-ml>=3.47.6",
     "dataset>=1.6.2",
     "transformers>=4.48.1",
+    "quixstreams>=3.8.0",
 ]

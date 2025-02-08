@@ -8,7 +8,7 @@ class Config(BaseSettings):
     Configuration for the news service.
     """
 
-    model_config = SettingsConfigDict(env_file='settings.env')
+    model_config = SettingsConfigDict(env_file='historical_settings.env')
     kafka_broker_address: str
     kafka_topic: str
     data_source: Literal['live', 'historical']
