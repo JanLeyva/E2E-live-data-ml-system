@@ -19,10 +19,10 @@ def main(
     Args:
         kafka_broker_address: str
         kafka_topic: str
-        trades_api: TradesAPI with two methods. get_trades and its_done
+        trades_api: TradesAPI with 2 methods: get_trades and is_done
 
     Returns:
-        None .
+        None
     """
     logger.info('Start the trades service')
 

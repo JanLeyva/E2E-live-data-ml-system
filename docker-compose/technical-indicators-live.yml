@@ -8,13 +8,15 @@ services:
   trades:
     build:
       context: ../services/trades
-      dockerfile: multi.Dockerfile
+      dockerfile: Dockerfile
     networks:
       - redpanda_network
-    env_file:
-      - ../services/trades/live.settings.env
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
+      - KAFKA_TOPIC=trades_live_12
+      - PAIRS=["BTC/USD", "BTC/EUR", "ETH/USD", "ETH/EUR", "SOL/USD", "SOL/EUR"]
+      - DATA_SOURCE=live
+      - LAST_N_DAYS=30
     restart: always
 
   candles:
@@ -23,10 +25,14 @@ services:
       dockerfile: Dockerfile
     networks:
       - redpanda_network
-    env_file:
-      - ../services/candles/settings.env
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
+      - KAFKA_INPUT_TOPIC=trades_live_12
+      - KAFKA_OUTPUT_TOPIC=candles_live_12
+      - KAFKA_CONSUMER_GROUP=candles_consumer_group_live_1
+      - CANDLE_SECONDS=60
+      - EMIT_INCOMPLETE_CANDLES=True
+      - DATA_SOURCE=live
     restart: always
 
   technical-indicators:
@@ -35,10 +41,14 @@ services:
       dockerfile: Dockerfile
     networks:
       - redpanda_network
-    env_file:
-      - ../services/technical-indicators/settings.env
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
+      - KAFKA_INPUT_TOPIC=candles_live_12
+      - KAFKA_OUTPUT_TOPIC=technical_indicators_live_12
+      - KAFKA_CONSUMER_GROUP=technical_indicators_consumer_group_live_1
+      - MAX_CANDLES_IN_STATE=60
+      - CANDLE_SECONDS=60
+      - DATA_SOURCE=live
     restart: always
 
   to-feature-store:
@@ -47,8 +57,14 @@ services:
       dockerfile: Dockerfile
     networks:
       - redpanda_network
-    env_file:
-      - ../services/to-feature-store/settings.env
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
+      - KAFKA_INPUT_TOPIC=technical_indicators_live_12
+      - KAFKA_CONSUMER_GROUP=to_feature_store_consumer_group_1
+      - FEATURE_GROUP_NAME=technical_indicators
+      - FEATURE_GROUP_VERSION=1
+      - FEATURE_GROUP_PRIMARY_KEYS=["pair", "candle_seconds"]
+      - FEATURE_GROUP_EVENT_TIME=timestamp_ms
+      - FEATURE_GROUP_MATERIALIZATION_INTERVAL_MINUTES=15
+      - DATA_SOURCE=live
     restart: always

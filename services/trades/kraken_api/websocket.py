@@ -29,6 +29,7 @@ class KrakenWebsocketAPI(TradesAPI):
         """
         # receive the data from the websocket
         data = self._ws_client.recv()
+
         if 'heartbeat' in data:
             logger.info('Heartbeat received')
             return []
@@ -47,7 +48,7 @@ class KrakenWebsocketAPI(TradesAPI):
             return []
 
         trades = [
-            Trade.from_kraken_api_response(
+            Trade.from_kraken_websocket_api_response(
                 pair=trade['symbol'],
                 price=trade['price'],
                 volume=trade['qty'],
@@ -55,9 +56,7 @@ class KrakenWebsocketAPI(TradesAPI):
             )
             for trade in trades_data
         ]
-
         # breakpoint()
-
         return trades
 
     def is_done(self) -> bool:
@@ -75,13 +74,13 @@ class KrakenWebsocketAPI(TradesAPI):
                     'params': {
                         'channel': 'trade',
                         'symbol': self.pairs,
-                        'snapshot': False,  # I don't want old data, just fresh
+                        'snapshot': False,
                     },
                 }
             )
         )
 
-        for _pair in self.pairs:
+        for _ in self.pairs:
             _ = self._ws_client.recv()
             _ = self._ws_client.recv()
 

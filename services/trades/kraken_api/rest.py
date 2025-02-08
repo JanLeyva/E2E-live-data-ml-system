@@ -76,9 +76,20 @@ class KrakenRestAPISinglePair(TradesAPI):
             'since': self.since_timestamp_ns,
         }
 
-        response = requests.request('GET', self.URL, headers=headers, params=params)
+        try:
+            response = requests.request('GET', self.URL, headers=headers, params=params)
+        except requests.exceptions.SSLError as e:
+            logger.error(f'The Kraken API is not reachable. Error: {e}')
 
-        # parse the response as json
+            # wait 10 seconds and try again
+            # It would be better to make this source stateful and recoverable, so if
+            # the container goes down and gets restarted by Kubernetes, it can resume
+            # from where it left off.
+            # TODO: reimplement this class a stateful Quix Streams data source so we don't
+            # have sleep here.
+            logger.error('Sleeping for 10 seconds and trying again...')
+            time.sleep(10)
+
         try:
             data = json.loads(response.text)
         except json.JSONDecodeError as e:
@@ -86,9 +97,10 @@ class KrakenRestAPISinglePair(TradesAPI):
             return []
 
         # TODO: check if we get a an error response. If so, implement a slow-down mechanism
+        # so we don't get rate limited by Kraken.
 
-        # get the trades for the self.pair cryptocurrency
         try:
+            # Get the trades data
             trades = data['result'][self.pair]
         except KeyError as e:
             logger.error(f'Failed to get trades for pair {self.pair}: {e}')

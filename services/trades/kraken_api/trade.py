@@ -32,8 +32,9 @@ class Trade(BaseModel):
             volume: float
             timestamp_sec: float
         """
-        # convert timestamp_sec from float to str
+        # convert the timestamp_sec from float to str
         timestamp_ms = int(float(timestamp_sec) * 1000)
+
         return cls(
             pair=pair,
             price=price,
@@ -43,12 +44,12 @@ class Trade(BaseModel):
         )
 
     @classmethod
-    def from_kraken_api_response(
+    def from_kraken_websocket_api_response(
         cls,
         pair: str,
         price: float,
         volume: float,
-        timestamp: datetime,
+        timestamp: str,
     ) -> 'Trade':
         return cls(
             pair=pair,
@@ -70,7 +71,6 @@ class Trade(BaseModel):
             datetime.strptime(datestr, '%Y-%m-%dT%H:%M:%S.%fZ').timestamp() * 1000
         )
 
-    # NOTE: deprectated, we are using to_dict to deserialize the output
     def to_str(self) -> str:
         # pydantic method to convert the model to a dict
         return self.model_dump_json()
