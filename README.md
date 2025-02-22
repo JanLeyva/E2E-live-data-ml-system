@@ -43,8 +43,16 @@ wrap up all together in a docker composer. Running the whole historical and live
 
 # TODO
 ## Services
-- trades -> candles -> technical-indicators -> to-feature-store DONE (perhaps need to backfill)
-- news -> news signal: fine-tune LLM, then backfill historical
-- price-predictor: train xgboost with historical data
+- trades -> candles -> technical-indicators -> to-feature-store DONE (perhaps need to backfill) [ ] backfill with rigth coin [BTC]
+- news -> news signal: fine-tune LLM, then backfill historical [X]
+- features join [ ]
+- price-predictor: train xgboost with historical data [ ]
 ## Inference
 - Rust API
+
+
+## Trades
+### Timestamp historical (2024-12-24) - (2025-01-18)
+
+## News signals
+### Timestamp hsitorical (2024-08-12) - (2025-01-07)
