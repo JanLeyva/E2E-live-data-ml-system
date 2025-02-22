@@ -16,7 +16,7 @@ services:
       - KAFKA_TOPIC=trades_historical_${RUN_ID}
       - PAIRS=["BTC/USD", "BTC/EUR", "ETH/USD", "ETH/EUR", "SOL/USD", "SOL/EUR"]
       - DATA_SOURCE=historical
-      - LAST_N_DAYS=30
+      - LAST_N_DAYS=60
     restart: on-failure
 
   candles:
@@ -33,7 +33,7 @@ services:
       - CANDLE_SECONDS=60
       - EMIT_INCOMPLETE_CANDLES=True
       - DATA_SOURCE=historical
-    restart: on-failure
+    restart: always
 
   technical-indicators:
     build:
@@ -49,7 +49,7 @@ services:
       - MAX_CANDLES_IN_STATE=120
       - CANDLE_SECONDS=60
       - DATA_SOURCE=historical
-    restart: on-failure
+    restart: always
 
   to-feature-store:
     build:
@@ -64,9 +64,9 @@ services:
       - KAFKA_INPUT_TOPIC=technical_indicators_historical_${RUN_ID}
       - KAFKA_CONSUMER_GROUP=to_feature_store_historical_${RUN_ID}
       - FEATURE_GROUP_NAME=technical_indicators
-      - FEATURE_GROUP_VERSION=2
+      - FEATURE_GROUP_VERSION=4
       - FEATURE_GROUP_PRIMARY_KEYS=["pair", "candle_seconds"]
       - FEATURE_GROUP_EVENT_TIME=timestamp_ms
       - FEATURE_GROUP_MATERIALIZATION_INTERVAL_MINUTES=15
       - DATA_SOURCE=historical
-    restart: on-failure
+    restart: always

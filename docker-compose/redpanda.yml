@@ -1,5 +1,5 @@
 version: '3.7'
-name: redpanda-owl-shop
+name: redpanda-dev-cluster
 networks:
   redpanda_network:
     driver: bridge
