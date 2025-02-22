@@ -117,6 +117,12 @@ def train(
         technical_indicators_as_features,
         prediction_seconds,
         llm_model_name_news_signals,
+        # Optional. Only required if the feature view above does not exist and needs
+        # to be created
+        # technical_indicators_feature_group_name="technical_indicators",
+        # technical_indicators_feature_group_version=4,
+        # news_signals_feature_group_name="news_signals",
+        # news_signals_feature_group_version=2,
     )
     logger.info(f'Reading feature data for {days_back} days back...')
     features_and_target = feature_reader.get_training_data(days_back=days_back)

@@ -10,13 +10,13 @@ if __name__ == '__main__':
 
     if mode == 'training':
         logger.info('Training mode!')
-        from training.training import main
+        from src.training.training import main
 
         main()
 
     elif mode == 'inference':
         logger.info('Inference mode!')
-        from inference.inference import main
+        from src.inference.inference import main
 
         main()
 

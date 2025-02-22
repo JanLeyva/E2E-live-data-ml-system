@@ -51,7 +51,7 @@ class FeatureReader:
             hopsworks_api_key,
         )
 
-        if technical_indicators_feature_group_name is not None:
+        if technical_indicators_feature_group_name:
             logger.info(
                 f'Attempt to create the feature view {feature_view_name}-{feature_view_version}'
             )
@@ -114,26 +114,6 @@ class FeatureReader:
             news_signals_feature_group_name,
             news_signals_feature_group_version,
         )
-
-        # # Query in 3-steps
-        # # Step 1. Filter rows from news_signals_fg for the model_name we need and drop the model_name column
-        # news_signal_query = news_signals_fg \
-        #     .select_all() \
-        #     .filter(news_signals_fg.model_name == self.llm_model_name_news_signals)
-        # # query = news_signal_query
-
-        # # # Step 2. Filter rows from technical_indicators_fg for the candle_seconds we need
-        # technical_indicators_query = technical_indicators_fg \
-        #     .select_all() \
-        #     .filter(technical_indicators_fg.candle_seconds == self.candle_seconds) \
-
-        # # Step 3. Join the 2 queries on the `coin` column
-        # query = technical_indicators_query.join(
-        #     news_signal_query,
-        #     on=["coin"],
-        #     join_type="left",
-        #     prefix='news_signals_',
-        # )
 
         # Attempt to create the feature view in one query
         query = (
@@ -261,10 +241,12 @@ class FeatureReader:
 
         if add_target_column:
             logger.info('Adding target column to the dataset')
+            # currently my mac cannot process that much data
+            # TODO: delete this filter in a better hardware
+            df_all = df_all[:50000]
 
             # extract the timestamp_ms and close columns where the targets are
             df_target = df_all[['window_end_ms', 'close']]
-
             # move the timestamp_ms column to the prediction_seconds seconds from now
             # so we can join on it
             df_target['window_end_ms'] = (
@@ -284,10 +266,13 @@ class FeatureReader:
 
             # rename the close_target column to target
             df_all.rename(columns={'close_target': 'target'}, inplace=True)
+            logger.info('Added target column')
 
         # rename the window_end_ms column to timestamp_ms and sort by it
         df_all.rename(columns={'window_end_ms': 'timestamp_ms'}, inplace=True)
         df_all.sort_values(by='timestamp_ms', inplace=True)
+
+        logger.info(f'Dataset of {df_all.shape}')
 
         # drop the pair_{pair} columns
         # These are categorical features and we don't need for the model

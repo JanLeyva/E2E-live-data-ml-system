@@ -45,10 +45,12 @@ wrap up all together in a docker composer. Running the whole historical and live
 ## Services
 - trades -> candles -> technical-indicators -> to-feature-store DONE (perhaps need to backfill) [ ] backfill with rigth coin [BTC]
 - news -> news signal: fine-tune LLM, then backfill historical [X]
-- features join [ ]
-- price-predictor: train xgboost with historical data [ ]
+- features join [X]
+- price-predictor: train xgboost with historical data [X]
+- Test inference pipeline [ ]
 ## Inference
-- Rust API
+- Rust API [ ]
+## Deployment
 
 
 ## Trades
