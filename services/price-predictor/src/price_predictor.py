@@ -8,16 +8,16 @@ import pandas as pd
 from comet_ml.api import API
 from config import CometMlCredentials as CometConfig
 from config import HopsworksCredentials as HopsworksConfig
-from feature_reader import FeatureReader
 from loguru import logger
+from pydantic import BaseModel
+from src.feature_reader import FeatureReader
 
 # - pickle,
 # - safetensors if you work with pytorch and neural networks...
 # - onnx if you want a portable model format that can be used in other languages
 # - etc...
-from models.xgboost_model import XGBRegressor
-from names import get_model_name
-from pydantic import BaseModel
+from src.models.xgboost_model import XGBRegressor
+from src.names import get_model_name
 
 Model = Tuple[XGBRegressor]
 

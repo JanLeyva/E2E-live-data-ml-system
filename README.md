@@ -47,7 +47,9 @@ wrap up all together in a docker composer. Running the whole historical and live
 - news -> news signal: fine-tune LLM, then backfill historical [X]
 - features join [X]
 - price-predictor: train xgboost with historical data [X]
-- Test inference pipeline [ ]
+- Test inference pipeline [X]
+- Elastic search as final prediction db works
+    - kibana as dashboard too
 ## Inference
 - Rust API [ ]
 ## Deployment

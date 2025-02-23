@@ -59,15 +59,6 @@ clean-backfill-kakfa-topics:
 ## News signal pipeline 
 ########################################
 
-# for live data
-build-news-signal-live:
-	docker compose -f news-signal-live.yml build
-
-start-news-signal-live: build-news-signal-live
-	docker compose -f news-signal-live.yml up -d
-
-stop-news-signal-live:
-	docker compose -f news-signal-live.yml down
 
 # for historical data
 build-news-signal-historical:
