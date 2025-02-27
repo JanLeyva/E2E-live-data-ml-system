@@ -36,6 +36,4 @@ def get_llm(
             model_name=config.model_name,
             base_url=config.ollama_base_url,
         )
-
-    else:
-        raise ValueError(f'Unsupported model provider: {model_provider}')
+    raise ValueError(f'Unsupported model provider: {model_provider}')

@@ -95,33 +95,3 @@ if __name__ == '__main__':
         print(f'Example: {example}')
         response = llm.get_signal(example)
         print(response)
-
-    """
-    Example: Bitcoin ETF ads spotted on China’s Alipay payment app
-    {
-        "btc_signal": 1,
-        "eth_signal": 0,
-        'reasoning': "The news of Bitcoin ETF ads being spotted on China's Alipay payment
-        app suggests a growing interest in Bitcoin and other cryptocurrencies among Chinese
-        investors. This could lead to increased demand for BTC, causing its price to rise."
-    }
-
-    Example: U.S. Supreme Court Lets Nvidia’s Crypto Lawsuit Move Forward
-    {
-        'btc_signal': -1,
-        'eth_signal': -1,
-        'reasoning': "The US Supreme Court's decision allows Nvidia to pursue its crypto
-        lawsuit, which could lead to increased regulatory uncertainty and potential
-        restrictions on cryptocurrency mining. This could negatively impact the prices
-        of both BTC and ETH."
-    }
-
-    Example: Trump’s World Liberty Acquires ETH, LINK, and AAVE in $12M Crypto Shopping Spree
-    {
-        'btc_signal': 0,
-        'eth_signal': 1,
-        'reasoning': "The acquisition of ETH by a major company like
-        Trump's World Liberty suggests that there is increased demand for
-        Ethereum, which could lead to an increase in its price."
-    }
-    """
