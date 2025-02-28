@@ -2,7 +2,7 @@
 
 This service does 3 things
 1. Get news data from Kafka topic.
-2. Calls LLM to get signal about the new. Example structure output:
+2. Calls LLM to get the signal about the new. Example structure output:
 ```json
 {"coin": "BTC", "signal": 1},
 {"coin": "ETH", "signal": 1},
@@ -67,6 +67,8 @@ PARAMETER stop "<|end_header_id|>"
 PARAMETER stop "<|end_of_text|>"
 PARAMETER stop "<|reserved_special_token|>"
 ```
+
+Note: we did the finetune in [Lambda](https://lambdalabs.com/?srsltid=AfmBOoqWtAJut4mVEd3kuNlAtQnRrURsZFU-9oXme9moDxfuM7ee__18), the cost to finetune a 1b model is less than 5$.
 
 ### Setup
 
