@@ -22,7 +22,6 @@ def init_candle(trade: dict) -> dict:
     """
     Initialize a candle with the first trade
     """
-    # breakpoint()
     return {
         'open': trade['price'],
         'high': trade['price'],
@@ -38,7 +37,6 @@ def update_candle(candle: dict, trade: dict) -> dict:
     """
     Update the candle with the latest trade
     """
-    # breakpoint()
     candle['close'] = trade['price']
     candle['high'] = max(candle['high'], trade['price'])
     candle['low'] = min(candle['low'], trade['price'])
