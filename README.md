@@ -103,13 +103,13 @@ Spin up locally this feature pipeline using `docker-compose/news-signal-historic
 Note: the [news-signal](services/news-signal/README.md) has also a **Training** script to finetune the open source LLM. You can find all the code here: `services/news-signal/finetune_src`.
 
 
-## Training
+## Training
 
 Once all feature pipelines are ready, we can proceed to the training pipeline. This project utilizes two models:
-* **LLM (LLama 3.3 1b)**: to extract signal from news pipeline.
+* **LLM (LLama 3.2 1b)**: to extract signal from news pipeline.
 * **XGBoost**: to predict crypto currency price.
 
-### LLM (Llama 3.3 1b)
+### LLM (Llama 3.2 1b)
 
 To finetune our own LLM first we need to have generated historical news data with his corresponding signal, this is done using the `news` and `news-signal` pipeline. The dataset has this structure:
 
@@ -123,7 +123,7 @@ To finetune our own LLM first we need to have generated historical news data wit
 ```
 You can find a ready generted dataset here: `services/news-signal/data/instruction_dataset_ollama_11k.jsonl`.
 
-We have choose Llama 3.3 1b LLM to finetune, as it's a tinny LLM but enough strong to accomplish our task. You can find a script to finetune your own LLM here: `services/news-signal/finetune_src/fine_tuning.py`
+We have choose Llama 3.2 1b LLM to finetune, as it's a tinny LLM but enough strong to accomplish our task. You can find a script to finetune your own LLM here: `services/news-signal/finetune_src/fine_tuning.py`
 First you will need 3 things:
 1. **A GPU**: if you are a gpu poor as I am, you can use serverless providers such as: [Lambda](https://lambdalabs.com/?srsltid=AfmBOoqWtAJut4mVEd3kuNlAtQnRrURsZFU-9oXme9moDxfuM7ee__18), [TogetherAI](https://www.together.ai), [Scaleway](https://www.scaleway.com/en/gpu-instances-signup/?utm_source=google&utm_medium=cpc&utm_campaign=ai-ml-solution-eu-prio&utm_term=ai-ml-gpu&utm_content=gpu-instances-signup&gad_source=1&gbraid=0AAAAAC10KOQZQ4pj3Rv_nbWvY6JeDBMoN&gclid=EAIaIQobChMIlbCuj-ztiwMVuYKDBx0G0Q_nEAAYAiAAEgKGGPD_BwE) and more. In my case, I choose Lambda because they offer cost-effective instances and easy SSH connections. Fine-tuning a small LLM (1-8B parameters) on a 10K dataset costs less than $5 (approximately). You can use an A10 or A100 GPU, and you'll be good to go.
 1. **[HuggingFace](https://huggingface.co)** account: to download and upload your model we will use huggingface as it has a free tier and it works really well. You can set your token as `HF_TOKEN`.
@@ -179,7 +179,7 @@ The REST API has two endpoint:
 - predict: takes as argument the **pair** of cryptocurrency to predict.
 
 
-## Architecture
+## Architecture
 
 The services follow a streaming architecture pattern where:
 
